@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CRUD de Estudiantes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0f2e9;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      border-bottom: 2px solid #2c3e50;
+      padding-bottom: 10px;
+    }
+
+    .header {
+      background-color: #1e8449;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #90EE90;
+      border-radius: 5px;
+      border: 1px solid #2c3e50;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #2c3e50;
+      border-right: 1px solid #2c3e50;
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: none;
+    }
+
+    th {
+      background-color: #2c3e50;
+      color: white;
+    }
+
+    img {
+      width: 200px;
+      
+    }
+
+    form {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #2c3e50;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #34495e;
+    }
+
+    ::placeholder {
+      color: #ccc;
+      font-style: italic;
+      font-size: 14px;
+      padding: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>CRUD de Estudiantes</h1>
+  </div>
+
+  <h2>Agregar Estudiante</h2>
+  <form action="/estudiantes" method="POST" enctype="multipart/form-data">
+    <input type="text" name="nombre" placeholder="Nombre del estudiante"><br>
+    <input type="text" name="apellido" placeholder="Apellido del estudiante"><br>
+    <input type="number" name="edad" placeholder="Edad del estudiante"><br>
+    <input type="text" name="curso" placeholder="Curso del estudiante"><br>
+    <input type="file" name="imagen"><br>
+    <input type="submit" value="Guardar" style="margin-top: 10px;">
+  </form>
+
+  <h2>Estudiantes Agregados</h2>
+  <table>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Edad</th>
+      <th>Curso</th>
+      <th>Imagen</th>
+      <th>Acciones</th>
+    </tr>
+    <% estudiantes.forEach(function(estudiante) { %>
+      <tr>
+        <td><%= estudiante.nombre %></td>
+        <td><%= estudiante.apellido %></td>
+        <td><%= estudiante.edad %></td>
+        <td><%= estudiante.curso %></td>
+        <td><img src="<%= estudiante.imagen %>"></td>
+        <td>
+          <form action="/estudiantes/<%= estudiante.id %>/editar" method="GET">
+            <input type="submit" value="Editar">
+          </form>
+          <form action="/estudiantes/<%= estudiante.id %>?_method=DELETE" method="POST">
+            <input type="submit" value="Eliminar">
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
